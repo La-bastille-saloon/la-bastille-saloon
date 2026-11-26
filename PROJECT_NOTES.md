@@ -100,9 +100,9 @@ L'utilisateur a demandé de simplifier la méthode : « copie tout simplement sa
 Conséquences :
 - La base de départ est désormais une copie complète de Saint-Denis, pas une reconstruction simplifiée.
 - Source exacte : https://github.com/cabinet-medical-de-Saint-Denis/cabinet-medical-de-saint-denis.github.io (branche main).
-- Destination exclusive : https://github.com/La-bastille-saloon/la-bastille-saloon (branche main).
+- Destination exclusive : https://github.com/La-bastille-saloon/la-bastille-saloon (branche de préparation `copie-base-saint-denis` ; ne pas fusionner dans `main` avant neutralisation Supabase).
 - Reproduire le contenu source dans le dépôt destination, puis adapter module par module, avec commit et vérification à chaque étape.
 - Ne jamais pousser de commit, modifier un fichier, créer une branche ou changer un paramètre dans le dépôt source Saint-Denis.
 - Contrainte préexistante maintenue : La Bastille ne doit pas utiliser Supabase ni l'authentification distante ; ne jamais connecter le site Bastille au projet Supabase de Saint-Denis. Lors de la copie, neutraliser/isoler toute configuration distante avant publication si nécessaire, puis migrer vers stockage local + import/export JSON.
 - Conserver PROJECT_NOTES.md dans le dépôt La Bastille comme carnet de suivi, même si le reste de l'application est remplacé par la copie.
-- Aucun fichier applicatif n'a encore été copié à la suite de cette décision. La copie effective reste à faire.
+- Copie de préparation effectuée le 26/11/2026 sur `copie-base-saint-denis`, commit `d64b989eaff32eac03f3104ef37ed940d06e68ed`. Le fichier `index.html` (3 404 913 caractères) et les feuilles CSS/JS, favicons et plusieurs ressources ont été transférés. Limite restante : `assets/carnet-consultations-saint-denis.png` (3 718 559 octets) n'a pas pu être transféré avec le connecteur. Le code `index.html` contient encore les appels et identifiants Supabase de Saint-Denis : branche de préparation uniquement, ne pas publier ni fusionner avant neutralisation complète et migration du stockage local. Le dossier `supabase/migrations` et les données Supabase ne sont pas copiés.
