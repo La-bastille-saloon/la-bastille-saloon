@@ -1,29 +1,32 @@
 # La Bastille — Saloon
 
-Site web RedM / RP de La Bastille.
+Site de gestion du saloon La Bastille pour le serveur RedM / RP.
 
-## État actuel
+## Fonctionnalités
 
-- Identité visuelle western et bannière SVG dédiée.
+- Identité visuelle western dédiée : bandeau, couleurs et typographies.
 - Navigation responsive.
 - Carte de la maison.
-- Registre des articles et quantités.
-- Journal des entrées, sorties et corrections.
-- Suivi des commandes et livraisons.
+- Inventaire des réserves et seuils d'alerte.
+- Journal des entrées, sorties et corrections de stock.
+- Suivi des commandes et de leur réception.
 - Annuaire du personnel.
-- Export JSON des données locales.
+- Export et import de sauvegardes JSON.
 
-## Données et sécurité
+## Stockage des données
 
-Cette première version enregistre les données de gestion dans le stockage local du navigateur. Elles ne sont donc **pas partagées** entre les membres du personnel, les appareils ou les navigateurs. L'export JSON permet de sauvegarder les données du navigateur courant.
+Le site fonctionne sans compte, sans authentification et sans service distant. Les données sont enregistrées dans le stockage local du navigateur utilisé.
 
-La connexion multi-utilisateur, les rôles et les droits d'accès ne sont pas encore activés. Ils nécessiteront une base Supabase dédiée à La Bastille et des règles RLS adaptées. Aucune URL, clé, table ou donnée des cabinets médicaux n'est réutilisée.
+**Important :** le stockage local n'est pas synchronisé entre plusieurs appareils ou navigateurs. Utilisez régulièrement « Exporter une sauvegarde JSON » et conservez le fichier obtenu. L'import d'un fichier JSON La Bastille remplace les données actuellement présentes dans le navigateur.
+
+Aucune connexion ni donnée Supabase n'est utilisée par ce site.
 
 ## Publication GitHub Pages
 
-Dans les paramètres du dépôt, ouvrir **Pages**, choisir **Deploy from a branch**, sélectionner `main` et le dossier `/ (root)`, puis enregistrer. Le site sera publié à l'adresse GitHub Pages proposée par GitHub.
+Dans les paramètres du dépôt, ouvrir **Pages**, choisir **Deploy from a branch**, sélectionner la branche `main` et le dossier `/ (root)`, puis enregistrer.
 
 ## Personnalisation
 
 - Bannière : `assets/bastille-banner.svg`
-- Page principale et interface : `index.html`
+- Page et fonctionnalités : `index.html`
+- Icône : `favicon.svg`
