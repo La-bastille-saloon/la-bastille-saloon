@@ -105,4 +105,7 @@ Conséquences :
 - Ne jamais pousser de commit, modifier un fichier, créer une branche ou changer un paramètre dans le dépôt source Saint-Denis.
 - Contrainte préexistante maintenue : La Bastille ne doit pas utiliser Supabase ni l'authentification distante ; ne jamais connecter le site Bastille au projet Supabase de Saint-Denis. Lors de la copie, neutraliser/isoler toute configuration distante avant publication si nécessaire, puis migrer vers stockage local + import/export JSON.
 - Conserver PROJECT_NOTES.md dans le dépôt La Bastille comme carnet de suivi, même si le reste de l'application est remplacé par la copie.
-- Aucun fichier applicatif n'a encore été copié à la suite de cette décision. La copie effective reste à faire.
+- 26/11/2026 — À la demande de l'utilisateur, le contenu applicatif préexistant de La Bastille a été retiré pour préparer le dépôt à recevoir la copie Saint-Denis.
+- Le dépôt La Bastille ne conserve volontairement que ce fichier de continuité : PROJECT_NOTES.md. README.md, index.html, favicon.svg et assets/ ont été retirés.
+- Vérification avant commit : arborescence GitHub inspectée récursivement ; six entrées initiales identifiées, dont PROJECT_NOTES.md conservé. Aucun accès en écriture au dépôt Saint-Denis.
+- Prochaine action : l'utilisateur téléverse la copie Saint-Denis dans le dépôt La Bastille. Ne pas toucher à Saint-Denis et ne pas connecter La Bastille à Supabase.
