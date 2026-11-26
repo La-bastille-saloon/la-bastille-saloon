@@ -24,5 +24,8 @@
 6. Finaliser le thème et les éléments graphiques La Bastille.
 7. Tester les parcours principaux avant toute publication sur `main`.
 
-## Dernier point enregistré
-Branche de travail créée depuis `main`. Aucune modification n'a été faite au dépôt Saint-Denis ni à la branche `main` de La Bastille.
+## Derniers points enregistrés
+- Commit `2ff5d79` : création de ce journal de reprise sur la branche de travail.
+- Commit `7fe85d1` : sécurisation de l'enregistrement local (message clair si le navigateur refuse l'écriture) et validation plus stricte de la structure des sauvegardes importées.
+- Vérification après écriture : le fichier `index.html` de la branche de travail contient bien ces changements et ne contient aucune référence à Supabase ni à l'authentification.
+- Aucune modification n'a été faite au dépôt Saint-Denis ni à la branche `main` de La Bastille.
