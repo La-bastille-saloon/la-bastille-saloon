@@ -8,12 +8,12 @@ Ce fichier est le carnet de référence du travail sur le site La Bastille. Le r
 
 - Dépôt UNIQUE à modifier : https://github.com/La-bastille-saloon/la-bastille-saloon
 - Branche : `main`
-- Dépôt Saint-Denis : https://github.com/cabinet-medical-de-Saint-Denis/ (référence de structure uniquement, ne jamais écrire dedans)
+- Dépôt source Saint-Denis (copie en lecture seule) : https://github.com/cabinet-medical-de-Saint-Denis/cabinet-medical-de-saint-denis.github.io (ne jamais écrire dedans)
 - Ne pas travailler dans un dépôt homonyme ou dans `Ryuu62-debug/la-bastille-saloon` : ce n'est pas le dépôt confirmé pour ce projet.
 
 ## Objectif
 
-Créer le site de gestion du saloon La Bastille (univers RedM / Red Dead Redemption 2), en prenant le site médical de Saint-Denis comme référence de structure et d'ergonomie, mais en transformant les fonctions pour qu'elles aient du sens pour un saloon.
+Créer le site de gestion du saloon La Bastille (univers RedM / Red Dead Redemption 2) en partant d'une copie complète de la base Saint-Denis dans le dépôt La Bastille, puis effectuer les adaptations progressivement, une par une. Le dépôt source reste strictement intact.
 
 Conserver les éléments fonctionnels utiles et la structure générale de la base, sans reproduire les fonctions médicales.
 
@@ -24,7 +24,7 @@ Conserver les éléments fonctionnels utiles et la structure générale de la ba
 3. La Bastille doit être totalement indépendante : AUCUNE authentification, AUCUN Supabase, aucune requête vers un service distant.
 4. Stockage local navigateur uniquement, avec export et import de sauvegarde JSON.
 5. Prévoir une sauvegarde de sécurité avant tout import qui remplace les données locales.
-6. Garder la structure générale et les fonctions utiles de Saint-Denis, mais convertir le vocabulaire, les écrans et les comportements pour le saloon.
+6. Nouvelle décision du 26/11/2026 : commencer par copier la base Saint-Denis complète dans le dépôt La Bastille, puis adapter les écrans et fonctions progressivement, une par une. Ne pas reconstruire une version simplifiée depuis zéro.
 7. Retirer complètement les éléments médicaux : consultations, carnet de consultations, guide médical, tableau des fumigènes et section apprentis, ainsi que toute fonction exclusivement liée à ces modules.
 8. Créer une identité visuelle cohérente avec La Bastille et Red Dead Redemption 2 : couleurs, bandeau supérieur, ambiance western/saloon. Aucun nom ou texte médical ne doit rester dans l'interface.
 9. Avancer par petites étapes vérifiables. Ne pas lancer une refonte massive non contrôlée.
@@ -67,7 +67,8 @@ Ce découpage est indicatif : si le plan précis déjà établi dans la conversa
 - `index.html` existe (environ 27 Ko au dernier relevé).
 - Le README décrit déjà une application saloon sans compte, sans Supabase, avec stockage local, menu, stocks, journal, commandes, personnel et sauvegarde JSON.
 - Le dépôt contient donc déjà un début d'implémentation : ne pas repartir de zéro et ne pas écraser les travaux présents.
-- Le statut fonctionnel réel de chaque module et l'état précis de l'étape 1 restent à confirmer par inspection du code et tests. Le simple contenu du README ne constitue pas une preuve de fonctionnement.
+- Le dépôt source exact est cabinet-medical-de-Saint-Denis/cabinet-medical-de-saint-denis.github.io, branche main. Arborescence inspectée : .github/workflows, assets/, bureau-enhancements.css, index.html (3,4 Mo), medicine-guide.css, medicine-guide.js, supabase/migrations/, favicons et autres ressources. La copie doit se faire vers le dépôt La Bastille uniquement.
+- Le statut fonctionnel réel de chaque module reste à confirmer après copie et tests.
 - Le dépôt Saint-Denis n'a pas été modifié.
 
 ## Journal des étapes et commits
@@ -90,3 +91,18 @@ Ce découpage est indicatif : si le plan précis déjà établi dans la conversa
 ## Rappel avant chaque reprise
 
 Lire ce mémo, examiner l'état actuel de `main` et les derniers commits, puis reprendre exactement au dernier point vérifié. Ne pas se fier à un souvenir approximatif de conversation. Ne jamais toucher à Saint-Denis.
+
+
+## Changement de méthode — 26/11/2026, décision utilisateur
+
+L'utilisateur a demandé de simplifier la méthode : « copie tout simplement saint denis et on fera les modif petit a petit ».
+
+Conséquences :
+- La base de départ est désormais une copie complète de Saint-Denis, pas une reconstruction simplifiée.
+- Source exacte : https://github.com/cabinet-medical-de-Saint-Denis/cabinet-medical-de-saint-denis.github.io (branche main).
+- Destination exclusive : https://github.com/La-bastille-saloon/la-bastille-saloon (branche main).
+- Reproduire le contenu source dans le dépôt destination, puis adapter module par module, avec commit et vérification à chaque étape.
+- Ne jamais pousser de commit, modifier un fichier, créer une branche ou changer un paramètre dans le dépôt source Saint-Denis.
+- Contrainte préexistante maintenue : La Bastille ne doit pas utiliser Supabase ni l'authentification distante ; ne jamais connecter le site Bastille au projet Supabase de Saint-Denis. Lors de la copie, neutraliser/isoler toute configuration distante avant publication si nécessaire, puis migrer vers stockage local + import/export JSON.
+- Conserver PROJECT_NOTES.md dans le dépôt La Bastille comme carnet de suivi, même si le reste de l'application est remplacé par la copie.
+- Aucun fichier applicatif n'a encore été copié à la suite de cette décision. La copie effective reste à faire.
