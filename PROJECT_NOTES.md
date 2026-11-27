@@ -129,3 +129,8 @@ Conséquences :
 - `index.html` affiche uniquement les lieux et fiches effectivement enregistrés. Les lieux prédéfinis et les fiches automatiques qui réapparaissaient après suppression ont été retirés.
 - `local-register.js` désactive les fiches d’un lieu en tenant compte des espaces autour du nom et accepte les anciennes fiches sans lieu.
 - Vérifié dans Chromium : suppression d’un lieu et de fiches individuelles, persistance après actualisation, stock conservé et possibilité de recréer le lieu.
+
+## 27/11/2026 — Vocabulaire des plats et recettes
+
+- `index.html` adapte les textes du tableau de bord, de la préparation, des recettes, du Bureau et des fournisseurs au saloon. Les libellés des anciennes opérations ont été adaptés sans modifier les identifiants enregistrés ni les données personnalisées.
+- Recherche des anciens libellés visibles et contrôle de la syntaxe du script effectués.

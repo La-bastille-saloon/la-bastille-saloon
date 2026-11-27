@@ -1656,7 +1656,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
 </style>
 <link rel="stylesheet" href="bastille-theme.css">
 </head>
-<body class="is-admin" data-site-version="2026-11-27-suppliers">
+<body class="is-admin" data-site-version="2026-11-27-recettes">
 
 <div class="app">
   <aside class="sidebar">
@@ -1676,7 +1676,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
       <button data-view="pharmacy"><span class="ico">◇</span>Comptoir</button>
       <button data-view="movements"><span class="ico">⇄</span>Entrées / sorties</button>
       <button data-view="debts"><span class="ico">▧</span>Ardoise des impayés</button>
-      <button data-view="craft"><span class="ico">⚒︎</span>Fabrication</button>
+      <button data-view="craft"><span class="ico">⚒︎</span>Préparation</button>
       <button data-view="suppliers"><span class="ico">☏</span>Fournisseurs</button>
       <button data-view="history"><span class="ico">≡</span>Historique</button>
     </nav>
@@ -1696,7 +1696,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
     </div>
 
     <nav class="nav private-nav" id="privateNav" aria-label="Gestion du saloon">
-      <div class="private-nav-title user-manage-only">GESTION DU CABINET</div>
+      <div class="private-nav-title user-manage-only">GESTION DU SALOON</div>
       <button class="admin-only" data-view="recipes"><span class="ico">✎</span>Recettes</button>
       <button class="admin-only" id="settingsNav" data-view="settings"><span class="ico">⚙︎</span>Paramètres</button>
     </nav>
@@ -1788,7 +1788,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
             <div class="form-actions admin-only">
               <button class="btn" id="saveRecipePricing" type="button">Enregistrer les prix</button>
             </div>
-            <p class="hint">Le « prix conseillé » correspond au tarif de la prestation facturée au patient. Kit de soin et Seringue vivifiante restent affichés mais ne sont pas vendus à la pharmacie.</p>
+            <p class="hint">Le « prix conseillé » correspond au tarif recommandé pour le plat ou la boisson. Le « prix comptoir » est celui utilisé pour enregistrer les ventes au comptoir.</p>
           </div>
         </div>
         <div class="card sd-orders-overview" id="sdOrdersOverview">
@@ -1886,7 +1886,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
           <p class="muted" style="margin-top:0">Accès direct aux opérations les plus fréquentes du saloon.</p>
           <div class="quick-actions">
             <button class="btn" data-goto="movements">Nouvelle entrée / sortie</button>
-            <button class="btn good" data-goto="craft">Lancer une fabrication</button>
+            <button class="btn good" data-goto="craft">Préparer une recette</button>
             <button class="btn secondary" data-goto="inventory">Voir l'inventaire</button>
             <button class="btn ghost" data-goto="suppliers">Voir les fournisseurs</button>
           </div>
@@ -2085,26 +2085,26 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
 
     <section id="craft" class="view">
       <div class="card">
-        <h3 class="section-title">Fabrication des soins</h3>
+        <h3 class="section-title">Préparation des plats</h3>
         <div class="card-body">
           <div class="craft-head">
             <div class="field"><label>Recette</label><select id="craftRecipe"></select></div>
-            <div class="field"><label>Quantité à fabriquer</label><input type="number" id="craftQty" value="1" min="1" step="1"></div>
-            <div class="craft-stock-box"><span>Stock du soin sélectionné</span><strong id="craftProductStock">0</strong></div>
+            <div class="field"><label>Quantité à préparer</label><input type="number" id="craftQty" value="1" min="1" step="1"></div>
+            <div class="craft-stock-box"><span>Stock du plat sélectionné</span><strong id="craftProductStock">0</strong></div>
             <div class="craft-action-stack">
-              <button class="btn good big" id="craftButton">Fabriquer</button>
+              <button class="btn good big" id="craftButton">Préparer</button>
               <button class="btn big craft-order-btn" id="orderCraftButton" type="button">Commander</button>
             </div>
           </div>
-          <div class="recipe-note" id="craftDescription">Sélectionne un soin pour afficher les matériaux nécessaires.</div>
+          <div class="recipe-note" id="craftDescription">Sélectionne une recette pour afficher les ingrédients nécessaires.</div>
           <div class="table-wrap" style="margin-top:16px">
             <table>
-              <thead><tr><th>Matériau</th><th>Par unité</th><th>Nécessaire</th><th>En stock</th><th>Disponibilité</th><th>À commander</th></tr></thead>
+              <thead><tr><th>Ingrédient</th><th>Par unité</th><th>Nécessaire</th><th>En stock</th><th>Disponibilité</th><th>À commander</th></tr></thead>
               <tbody id="craftBody"></tbody>
             </table>
           </div>
           <div class="form-actions">
-            <button class="btn secondary" id="resetCraft">Reset fabrication</button>
+            <button class="btn secondary" id="resetCraft">Réinitialiser la préparation</button>
           </div>
         </div>
       </div>
@@ -2113,15 +2113,15 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
     <section id="recipes" class="view">
       <div class="grid two">
         <div class="card">
-          <h3 class="section-title">Ajouter une recette <small>crée automatiquement le nouveau soin dans l'inventaire</small></h3>
+          <h3 class="section-title">Ajouter une recette <small>ajoute automatiquement le plat à l’inventaire</small></h3>
           <div class="card-body">
             <div class="form-grid">
               <div class="field">
-                <label>Nom du nouveau soin</label>
-                <input id="newRecipeName" placeholder="Ex. Tonique fortifiant">
+                <label>Nom du plat ou de la boisson</label>
+                <input id="newRecipeName" placeholder="Ex. Rôti de bœuf">
               </div>
               <div class="field">
-                <label>Prix unitaire du soin ($)</label>
+                <label>Prix unitaire du plat ou de la boisson ($)</label>
                 <div class="currency-input"><input id="newRecipePrice" type="number" min="0" step="0.01" value="0"></div>
               </div>
               <div class="field" style="grid-column:1/-1">
@@ -2129,7 +2129,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
                   <input id="newRecipeNonPharmacy" type="checkbox" style="width:auto">
                   <span>Non vendu au comptoir</span>
                 </label>
-                <p class="hint" style="margin:4px 0 0">Si cette case est cochée, « Non vendu » sera affiché sur le tableau de bord et cette recette n'apparaîtra pas dans le registre de l'armoire.</p>
+                <p class="hint" style="margin:4px 0 0">Si cette case est cochée, « Non vendu » sera affiché sur le tableau de bord et cette recette n'apparaîtra pas dans le registre du comptoir.</p>
               </div>
               <div class="field" style="grid-column:1/-1">
                 <label style="display:flex;align-items:center;gap:10px;cursor:pointer;text-transform:none">
@@ -2152,7 +2152,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
             <div class="form-grid">
               <div class="field">
                 <label>Nom de l'ingrédient</label>
-                <input id="newIngredientName" placeholder="Ex. Ginseng">
+                <input id="newIngredientName" placeholder="Ex. Farine">
               </div>
               <div class="field">
                 <label>Prix unitaire ($)</label>
@@ -2188,7 +2188,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
           <div class="form-actions">
             <button class="btn" id="saveRecipes">Enregistrer les recettes</button>
           </div>
-          <p class="hint">Le coût de fabrication est calculé automatiquement à partir du prix actuel de chaque ingrédient × la quantité utilisée dans la recette. Tant que les prix fournisseurs ne sont pas renseignés, le coût peut donc rester à 0,00 $. 0 signifie que le matériau n'entre pas dans la recette. Le bouton « Retirer » enlève la recette de fabrication ainsi que le soin de l'inventaire.</p>
+          <p class="hint">Le coût de fabrication est calculé automatiquement à partir du prix actuel de chaque ingrédient × la quantité utilisée dans la recette. Tant que les prix fournisseurs ne sont pas renseignés, le coût peut donc rester à 0,00 $. 0 signifie que l’ingrédient n’entre pas dans la recette. Le bouton « Retirer » enlève la recette de fabrication ainsi que le plat de l’inventaire.</p>
         </div>
       </div>
     </section>
@@ -2211,7 +2211,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
 
     <section id="bureau" class="view">
       <div class="card">
-        <h3 class="section-title">LE BUREAU <small>salon privé du personnel médical</small></h3>
+        <h3 class="section-title">LE BUREAU <small>notes du saloon</small></h3>
         <div class="bureau-shell card-body">
           <div class="bureau-intro">
             <strong>Discussion du saloon</strong>
@@ -2387,8 +2387,8 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
     el.className="sync-state "+kind;
   }
   function typeLabel(t){
-    if(arguments[0]==="FRAIS_MEDICAUX")return "Frais médicaux";
-    if(arguments[0]==="FRAIS_MEDICAUX_RESET")return "Reset frais médicaux";
+    if(arguments[0]==="FRAIS_MEDICAUX")return "Frais de service (ancien registre)";
+    if(arguments[0]==="FRAIS_MEDICAUX_RESET")return "Réinitialisation des frais de service (ancien registre)";
     return {
       ACHAT:"Achat",DEPOT:"Dépôt",SORTIE:"Sortie",RETRAIT_STOCK:"Retrait du stock",VENTE:"Vente",PHARMACIE_VENTE:"Vente au comptoir",
       CORRECTION_PLUS:"Correction +",CORRECTION_MOINS:"Correction -",
@@ -2548,7 +2548,7 @@ $('navigationSave').addEventListener('click',async()=>{
       state.settings={ownerName:c.telegram_owner_name??"",name:c.cabinet_name||defaults.settings.name,place:c.place||defaults.settings.place,telegram:c.telegram||""};
       state.cash=num(c.cash_balance);
       state.resources=(resources.data||[]).map(r=>({
-        id:r.id,name:resourceNameText(r.name),stock:num(r.stock),unitPrice:num(r.unit_price),kind:r.category==="ingredient"?"ingredient":"soin",active:r.active!==false
+        id:r.id,name:resourceNameText(r.name),stock:num(r.stock),unitPrice:num(r.unit_price),kind:r.category==="ingredient"?"ingredient":"plat",active:r.active!==false
       }));
       state.recipes=(recipes.data||[]).map(rc=>{
         const map={};
@@ -2864,10 +2864,10 @@ $('navigationSave').addEventListener('click',async()=>{
     $("cashBig").textContent=money(state.cash);
     $("dashMonthName").textContent=new Intl.DateTimeFormat("fr-FR",{month:"long",year:"numeric"}).format(new Date());
     const low=[...inventoryStockResources()]
-      .filter(r=>r.kind!=="soin" || state.recipes.some(rc=>rc.productId===r.id && rc.quickStock!==false))
+      .filter(r=>r.kind!=="plat" || state.recipes.some(rc=>rc.productId===r.id && rc.quickStock!==false))
       .sort((a,b)=>num(a.stock)-num(b.stock))
       .slice(0,6);
-    $("lowStockPanel").innerHTML=low.length?low.map(r=>`<div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(91,134,173,.12)"><div><strong style="color:#dce7f0">${esc(resourceNameText(r.name))}</strong><div class="hint">${r.kind==="soin"?"Soin fabriqué":"Ingrédient"}</div></div><span class="pill ${num(r.stock)<=5?"red":"gold"}">${num(r.stock)} en stock</span></div>`).join(""):`<div class="empty">Aucune ressource.</div>`;
+    $("lowStockPanel").innerHTML=low.length?low.map(r=>`<div style="display:grid;grid-template-columns:1fr auto;gap:12px;align-items:center;padding:9px 0;border-bottom:1px solid rgba(91,134,173,.12)"><div><strong style="color:#dce7f0">${esc(resourceNameText(r.name))}</strong><div class="hint">${r.kind==="plat"?"Plat préparé":"Ingrédient"}</div></div><span class="pill ${num(r.stock)<=5?"red":"gold"}">${num(r.stock)} en stock</span></div>`).join(""):`<div class="empty">Aucune ressource.</div>`;
     const recent=[...state.history].reverse().slice(0,5);
     $("recentPanel").innerHTML=recent.length?recent.map(h=>`<div style="padding:9px 0;border-bottom:1px solid rgba(91,134,173,.12)"><div style="display:flex;justify-content:space-between;gap:10px"><strong style="color:#dce7f0">${esc(typeLabel(h.type))}</strong><span class="muted">${esc(h.date)}</span></div><div class="hint">${esc(h.resourceId?res(h.resourceId)?.name||h.resourceName||"Ressource":h.note||"Caisse")}${h.qty?` · ${h.qty}`:""}</div></div>`).join(""):`<div class="empty">Aucun mouvement enregistré.</div>`;
   }
@@ -2909,7 +2909,7 @@ $('navigationSave').addEventListener('click',async()=>{
     const withdrawal=type==="RETRAIT_STOCK";
     const r=res($("mvResource").value);
     $("mvPrice").value=withdrawal?"0.00":num(r?.unitPrice).toFixed(2);
-    const bankNote="à remettre à la banque du cabinet";
+    const bankNote="à remettre à la caisse du saloon";
     if(withdrawal){
       $("mvNote").value=bankNote;
       $("mvNote").readOnly=true;
@@ -2950,6 +2950,7 @@ $('navigationSave').addEventListener('click',async()=>{
     const rc=recipe($("craftRecipe").value); const qty=Math.max(1,parseInt($("craftQty").value||1,10));
     if(!rc){
       $("craftBody").innerHTML=`<tr><td colspan="6" class="empty">Aucune recette.</td></tr>`;
+      $("craftDescription").textContent="Ajoute une recette pour afficher ses ingrédients ici.";
       $("craftProductStock").textContent="0";
       $("craftButton").disabled=true;
       $("orderCraftButton").disabled=true;
@@ -2987,7 +2988,7 @@ $('navigationSave').addEventListener('click',async()=>{
 
       return `<tr><td class="resource-name">${esc(r?.name||id)}</td><td>${num(per)}</td><td><strong>${need}</strong></td><td>${have}</td><td><div class="progress"><span class="${stockMissing>0?"short":""}" style="width:${ratio}%"></span></div><div class="hint">${esc(availability)} · ${have}/${STOCK_BAR_MAX}</div></td><td class="craft-order-cell ${missing>0?"bad":"good"}">${orderCell}</td></tr>`;
     }).join("");
-    $("craftDescription").innerHTML=`Fabrication de <strong>${qty} ${esc(product?.name||rc.productId)}</strong>. Les besoins cumulent cette fabrication et les autres fabrications déjà prévues qui utilisent les mêmes ingrédients. Le stock et les commandes « À commander » et « En cours » sont déduits.`;
+    $("craftDescription").innerHTML=`Préparation de <strong>${qty} ${esc(product?.name||rc.productId)}</strong>. Les besoins cumulent cette préparation et les autres préparations déjà prévues qui utilisent les mêmes ingrédients. Le stock et les commandes « À commander » et « En cours » sont déduits.`;
     $("craftButton").disabled=!allOk||!rows.length;
     $("orderCraftButton").disabled=!rows.length;
   }
@@ -3157,7 +3158,7 @@ $('navigationSave').addEventListener('click',async()=>{
         <div class="bureau-avatar">${esc(bureauInitials(m.author_name))}</div>
         <div class="bureau-message-main">
           <div class="bureau-message-head">
-            <span class="bureau-author">${esc(m.author_name||"Personnel médical")}</span>
+            <span class="bureau-author">${esc(m.author_name||"Équipe du saloon")}</span>
             <span class="bureau-time">${esc(bureauDateLabel(m.created_at))}</span>
           </div>
           ${m.body?'<div class="bureau-body">'+esc(m.body)+'</div>':""}
@@ -3760,7 +3761,7 @@ $('navigationSave').addEventListener('click',async()=>{
     const resource=isOther?null:res($("mvResource").value);
     const type=$("mvType").value,qty=num($("mvQty").value);
     const price=num($("mvPrice").value),total=qty*price;
-    const note=type==="RETRAIT_STOCK"?"à remettre à la banque du cabinet":$("mvNote").value.trim();
+    const note=type==="RETRAIT_STOCK"?"à remettre à la caisse du saloon":$("mvNote").value.trim();
     if((!isOther&&!resource)||qty<=0){toast("Indique une ressource et une quantité valide.");return;}
     if(isOther&&!note){toast("Pour « Autre », indique obligatoirement le motif dans la note.");$("mvNote").focus();return;}
     if(type==="RETRAIT_STOCK"&&(!resource||!state.recipes.some(rc=>rc.productId===resource.id)||!Number.isInteger(qty))){
@@ -4081,7 +4082,7 @@ $('navigationSave').addEventListener('click',async()=>{
     $("supplierAddTelegram").value=isNew?"":contact?.telegram||"";
     $("supplierAddPrice").value="0";
     $("supplierAddPrice").disabled=true;
-    $("supplierAddError").textContent=!isNew&&!available.length&&!isAdmin?"Tous les ingrédients du cabinet sont déjà rattachés à ce lieu.":"";
+    $("supplierAddError").textContent=!isNew&&!available.length&&!isAdmin?"Tous les ingrédients du saloon sont déjà rattachés à ce lieu.":"";
     $("supplierAddConfirm").disabled=!isNew&&!available.length&&!isAdmin;
     dialog.showModal();
     (isNew?$("supplierAddPlace"):$("supplierAddResource")).focus();
@@ -4165,7 +4166,7 @@ $('navigationSave').addEventListener('click',async()=>{
         const {data:resources,error:resourceError}=await db.from("resources").select("id,name,category,active");
         if(resourceError)throw resourceError;
         const found=resources.find(r=>r.name.trim().toLocaleLowerCase("fr-FR")===resourceName.toLocaleLowerCase("fr-FR"));
-        if(found&&found.category!=="ingredient")throw new Error("Ce nom est déjà utilisé par un soin. Choisis un autre nom.");
+        if(found&&found.category!=="ingredient")throw new Error("Ce nom est déjà utilisé par un plat ou une boisson. Choisis un autre nom.");
         if(found&&existing.some(s=>s.resource_id===found.id))throw new Error("Cet ingrédient est déjà rattaché à ce lieu.");
         if(found){
           resourceId=found.id;
