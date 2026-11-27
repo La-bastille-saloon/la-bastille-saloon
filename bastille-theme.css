@@ -1,0 +1,164 @@
+:root {
+  --bastille-shadow: #160e0c;
+  --bastille-mahogany: #271711;
+  --bastille-wine: #581d27;
+  --bastille-brass: #b58a4e;
+  --bastille-gold: #ebc98a;
+  --bastille-cream: #f8ecdb;
+}
+
+html { background: var(--bastille-shadow); }
+
+body {
+  background: radial-gradient(ellipse at 55% 0%, #48261c, var(--bastille-shadow) 72%) fixed !important;
+  color: var(--bastille-cream) !important;
+}
+
+.sidebar, .topbar {
+  background: linear-gradient(140deg, #442318, #241612 58%, #1b1110) !important;
+  border-color: var(--bastille-brass) !important;
+  box-shadow: inset 0 0 0 3px #1b1110, inset 0 0 0 4px #b58a4e50, 0 4px 14px #0007 !important;
+}
+
+.sidebar .brand h1, .sidebar .nav button, .sidebar .user-box strong { color: var(--bastille-cream) !important; }
+.sidebar .brand p, .sidebar .user-box, .topbar p { color: #d9be9d !important; }
+
+.sidebar .brand .seal {
+  aspect-ratio: 1;
+  height: auto;
+  align-self: center;
+  display: grid;
+  place-items: center;
+  border-radius: 50% !important;
+  border: 3px double var(--bastille-brass) !important;
+  background: radial-gradient(circle at 35% 28%, #75333c, #341418 75%) !important;
+  color: var(--bastille-gold) !important;
+  font: bold 23px/1 Georgia, serif;
+  letter-spacing: -.09em;
+  box-shadow: 0 0 0 2px #1b1110 !important;
+}
+
+.sidebar .nav button.active,
+.sidebar .nav button:hover {
+  background: linear-gradient(100deg, #682733, #361b1b) !important;
+  border-color: var(--bastille-brass) !important;
+  box-shadow: inset 3px 0 var(--bastille-brass);
+}
+
+#nav button[data-view] .ico,
+#privateNav button[data-view] .ico {
+  background-image: none !important;
+  font-size: 20px !important;
+  color: var(--bastille-gold) !important;
+}
+
+.topbar-bureau-shortcut, .btn:not(.ghost):not(.secondary):not(.good):not(.danger) {
+  background: linear-gradient(#692934, #42161f) !important;
+  border-color: var(--bastille-brass) !important;
+  color: var(--bastille-cream) !important;
+}
+
+#dashboard {
+  background: linear-gradient(150deg, #3b261e, #271912) !important;
+  border-color: var(--bastille-brass);
+}
+
+.bastille-hero {
+  display: grid;
+  position: relative;
+  align-items: end;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 235px;
+  aspect-ratio: 2.95;
+  margin: 0 0 12px;
+  padding: clamp(18px, 3.7vw, 58px);
+  border: 3px double var(--bastille-brass);
+  border-radius: 5px;
+  background: var(--bastille-shadow);
+  color: var(--bastille-cream);
+}
+
+.bastille-hero img, .bastille-hero::after {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.bastille-hero img {
+  object-fit: cover;
+  object-position: center 12%;
+  z-index: -2;
+}
+
+.bastille-hero::after {
+  content: "";
+  background: linear-gradient(0deg, #130b08ed, transparent 70%), linear-gradient(90deg, #160d09aa, transparent 64%);
+  z-index: -1;
+}
+
+.bastille-hero h2 {
+  margin: 0;
+  color: var(--bastille-cream);
+  font: 700 clamp(34px, 5vw, 79px)/.98 Georgia, "Times New Roman", serif;
+  text-shadow: 0 2px 8px #0d0706;
+}
+
+.bastille-hero p {
+  margin: 10px 0 0;
+  color: var(--bastille-gold);
+  font: 700 clamp(10px, 1.2vw, 13px)/1.2 Georgia, serif;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+}
+
+main .section-title,
+main .sd-dashboard-bottom > .sd-orders-overview .section-title {
+  background: linear-gradient(100deg, #58232b, #2b1713) !important;
+  border-bottom-color: var(--bastille-brass) !important;
+  color: var(--bastille-cream) !important;
+}
+
+main .section-title small { color: var(--bastille-gold) !important; }
+main .card .section-title::before,
+main .metric .label::before { display: none !important; }
+
+main .card.metric {
+  padding: 12px 10px !important;
+  text-align: left;
+}
+
+main .card.metric .label { align-items: start; }
+main .metric .value { white-space: normal; }
+
+main .card.metric.accent {
+  background: linear-gradient(140deg, #692934, #3e171d) !important;
+  border: 1px solid var(--bastille-brass) !important;
+  border-image: none !important;
+  padding: 14px 29px !important;
+}
+
+main .card.metric.accent :is(.label, .value) { color: var(--bastille-cream) !important; }
+main .card.metric.accent .sub { color: var(--bastille-gold) !important; }
+
+.dashboard-three { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+
+#pharmacy .pharmacy-glass-ledger { background: #f2e9d38c; }
+
+#pharmacy .pharmacy-photo-bg {
+  object-fit: cover;
+  object-position: 66% center;
+}
+
+:where(a, button, input, select, textarea):focus-visible {
+  outline: 2px solid #cc9446;
+  outline-offset: 2px;
+}
+
+@media (max-width: 700px) {
+  .dashboard-three { grid-template-columns: 1fr !important; }
+  .bastille-hero { aspect-ratio: 1.55; padding: 20px; }
+  .bastille-hero img { object-position: 44% center; }
+  main .card.metric.accent { padding: 14px 18px !important; }
+}

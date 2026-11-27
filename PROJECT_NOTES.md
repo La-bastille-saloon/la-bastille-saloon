@@ -117,3 +117,9 @@ Conséquences :
 - Fichiers concernés : `index.html`, `local-register.js`, `README.md`, ce mémo et les images WebP extraites de la page dans `assets/registre-*.webp`. Le carnet, le guide, le tableau des fumigènes et les écrans d’apprentis ont été retirés. Les fichiers du guide ont été supprimés.
 - Vérifications dans Chromium : ouverture des rubriques, zéro requête externe au chargement et pendant les parcours testés, caisse, fournisseur, commande et réception, note du Bureau, persistance après rechargement, export JSON, rejet d’un format invalide, import et copie avant remplacement.
 - Les données utilisées auparavant par la copie distante n’ont pas été transférées. Le registre local démarre vide sur un nouveau navigateur. Le Bureau conserve les notes et les pièces jointes localement.
+
+## 27/11/2026 — Thème visuel du saloon
+
+- Palette acajou, bordeaux, laiton et crème inspirée des captures fournies. La façade de nuit sert de bannière du tableau de bord et la photo intérieure accompagne le registre du comptoir.
+- Fichiers concernés : `index.html`, `bastille-theme.css`, `assets/bastille-facade.webp` et `assets/bastille-comptoir.webp`. Les vestiges visibles du formulaire de consultations ont été retirés.
+- Vérifications dans Chromium sur ordinateur et téléphone : affichage et recadrage du bandeau, chargement de la photo intérieure, navigation et persistance de la caisse après rechargement.
