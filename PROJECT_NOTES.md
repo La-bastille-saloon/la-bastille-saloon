@@ -134,3 +134,9 @@ Conséquences :
 
 - `index.html` adapte les textes du tableau de bord, de la préparation, des recettes, du Bureau et des fournisseurs au saloon. Les libellés des anciennes opérations ont été adaptés sans modifier les identifiants enregistrés ni les données personnalisées.
 - Recherche des anciens libellés visibles et contrôle de la syntaxe du script effectués.
+
+## 27/11/2026 — Lisibilité du thème
+
+- `bastille-theme.css` renforce le contraste des zones de lecture, des tableaux, des champs, du Bureau et du Comptoir. Le texte des boutons désactivés reste lisible.
+- `index.html` applique la couleur secondaire lisible au libellé de caisse et versionne la feuille de style.
+- Contrôle dans Chromium des douze rubriques à 1440 et 390 pixels avec des données de test. Le contrôle combine axe et un échantillonnage des fonds rendus derrière les textes.

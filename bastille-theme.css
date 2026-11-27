@@ -52,7 +52,7 @@ body {
   color: var(--bastille-gold) !important;
 }
 
-.topbar-bureau-shortcut, .btn:not(.ghost):not(.secondary):not(.good):not(.danger) {
+.topbar-bureau-shortcut, .btn:not(.ghost):not(.secondary):not(.good):not(.danger):not(:disabled) {
   background: linear-gradient(#692934, #42161f) !important;
   border-color: var(--bastille-brass) !important;
   color: var(--bastille-cream) !important;
@@ -144,8 +144,6 @@ main .card.metric.accent .sub { color: var(--bastille-gold) !important; }
 
 .dashboard-three { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
 
-#pharmacy .pharmacy-glass-ledger { background: #f2e9d38c; }
-
 #pharmacy .pharmacy-photo-bg {
   object-fit: cover;
   object-position: 66% center;
@@ -161,4 +159,111 @@ main .card.metric.accent .sub { color: var(--bastille-gold) !important; }
   .bastille-hero { aspect-ratio: 1.55; padding: 20px; }
   .bastille-hero img { object-position: 44% center; }
   main .card.metric.accent { padding: 14px 18px !important; }
+}
+
+/* Keep the parchment frame and give the text a predictable background. */
+@media screen {
+  :root {
+    --bastille-paper: #f5e8cf;
+    --bastille-paper-field: #fff7e8;
+    --bastille-paper-ink: #302019;
+    --bastille-paper-muted: #604538;
+    --bastille-dark-muted: #e3c9ad;
+  }
+
+  main .card > .card-body,
+  main .card.metric,
+  .sidebar .telegram {
+    background: var(--bastille-paper) !important;
+    background-clip: padding-box !important;
+    border-image-slice: 128 !important;
+    color: var(--bastille-paper-ink);
+  }
+
+  main .card.metric.accent { background: linear-gradient(140deg, #692934, #3e171d) !important; }
+
+  .card .card-body :is(.hint, .muted, .empty),
+  .card .field label,
+  .card .currency-input::after,
+  .pharmacy-glass-ledger .currency-input::after {
+    color: var(--bastille-paper-muted);
+  }
+
+  .card .card-body :is(input:not([type="checkbox"]):not([type="file"]), textarea, select),
+  #pharmacy .pharmacy-qty-box input {
+    background: var(--bastille-paper-field);
+    color: var(--bastille-paper-ink);
+    border-color: #916b43;
+  }
+
+  .card .card-body :is(input, textarea)::placeholder,
+  #pharmacy input::placeholder {
+    color: var(--bastille-paper-muted);
+    opacity: 1;
+  }
+
+  .card .card-body :is(.warning, .recipe-note) {
+    background: #eedac0;
+    color: #542723;
+  }
+
+  .card .card-body .craft-order-provider { color: var(--bastille-paper-muted); }
+  .card .card-body .craft-order-provider.bad { color: #802522; }
+  #recentPanel strong { color: #703815 !important; }
+  .card .card-body .good { color: #265b32; }
+  .card .card-body .bad { color: #802522; }
+  .card .card-body button.good { color: #fff4de; }
+  .card .card-body button.bad { color: #fff4de; }
+
+  .card .orders-table .order-status.status-a-commander { background: #532631; color: #fff2dd; }
+  .card .orders-table .order-status.status-en-cours { background: #295037; color: #f1ffef; }
+  .card .orders-table .order-status.status-livre { background: #612524; color: #fff0e3; }
+  .card .orders-table .order-status:disabled { opacity: 1; }
+  .card .supplier-group-total {
+    background: #371c18;
+    color: #ffe5ad;
+  }
+
+  .card .card-body.westlegacy-panel {
+    background: var(--bastille-mahogany) !important;
+  }
+
+  main .card .card-body.westlegacy-panel p,
+  main .card .card-body .supplier-place-row .muted,
+  .debt-chalk-note,
+  .debt-field input::placeholder,
+  dialog :is(input, textarea)::placeholder {
+    color: var(--bastille-dark-muted);
+    opacity: 1;
+  }
+
+  #bureau .bureau-intro span,
+  #bureau :is(.bureau-time, .bureau-empty, .bureau-hint) {
+    color: var(--bastille-paper-muted);
+  }
+
+  #bureau .bureau-time, #bureau .bureau-hint { font-size: 12px; }
+  #bureau .bureau-delete { opacity: 1; color: #802522; }
+  #bureau .bureau-file-card { background: var(--bastille-mahogany); color: var(--bastille-cream); }
+  #bureau .bureau-file-size { color: var(--bastille-dark-muted); }
+  #bureau .bureau-composer { background: #e8d4b6; }
+
+  #pharmacy :is(.pharmacy-glass-ledger, .pharmacy-glass-ledger-head, .pharmacy-glass-ledger-foot) {
+    background: var(--bastille-paper);
+  }
+  #pharmacy .pharmacy-table td { background: var(--bastille-paper-field); }
+
+  .btn:disabled {
+    opacity: 1;
+    filter: none;
+    background: #e0d2bd !important;
+    color: #5d4a3d !important;
+    border-color: #9b8269 !important;
+    box-shadow: none;
+  }
+
+  .bastille-hero::after {
+    background: linear-gradient(0deg, #130b08f5, #130b08a8 38%, transparent 80%),
+                linear-gradient(90deg, #160d09aa, transparent 64%);
+  }
 }
