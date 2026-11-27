@@ -109,3 +109,11 @@ Conséquences :
 - Le dépôt La Bastille ne conserve volontairement que ce fichier de continuité : PROJECT_NOTES.md. README.md, index.html, favicon.svg et assets/ ont été retirés.
 - Vérification avant commit : arborescence GitHub inspectée récursivement ; six entrées initiales identifiées, dont PROJECT_NOTES.md conservé. Aucun accès en écriture au dépôt Saint-Denis.
 - Prochaine action : l'utilisateur téléverse la copie Saint-Denis dans le dépôt La Bastille. Ne pas toucher à Saint-Denis et ne pas connecter La Bastille à Supabase.
+
+## 27/11/2026 — Suppression de la connexion et sauvegarde locale
+
+- Suppression de la connexion, des comptes, des contrôles d’accès, du client distant et des appels au serveur du cabinet. Le registre s’ouvre directement et enregistre ses données dans le navigateur.
+- Les paramètres proposent l’export et l’import JSON. L’import valide le format, demande confirmation et conserve une copie exportable du registre précédent.
+- Fichiers concernés : `index.html`, `local-register.js`, `README.md`, ce mémo et les images WebP extraites de la page dans `assets/registre-*.webp`. Le carnet, le guide, le tableau des fumigènes et les écrans d’apprentis ont été retirés. Les fichiers du guide ont été supprimés.
+- Vérifications dans Chromium : ouverture des rubriques, zéro requête externe au chargement et pendant les parcours testés, caisse, fournisseur, commande et réception, note du Bureau, persistance après rechargement, export JSON, rejet d’un format invalide, import et copie avant remplacement.
+- Les données utilisées auparavant par la copie distante n’ont pas été transférées. Le registre local démarre vide sur un nouveau navigateur. Le Bureau conserve les notes et les pièces jointes localement.
