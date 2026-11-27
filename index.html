@@ -1656,7 +1656,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
 </style>
 <link rel="stylesheet" href="bastille-theme.css">
 </head>
-<body class="is-admin" data-site-version="2026-11-27-theme">
+<body class="is-admin" data-site-version="2026-11-27-suppliers">
 
 <div class="app">
   <aside class="sidebar">
@@ -2333,7 +2333,7 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
 
 <div class="toast" id="toast"></div>
 
-<script src="local-register.js"></script>
+<script src="local-register.js?v=suppliers"></script>
 <script>
 (async function(){
   const db = window.openLocalRegister();
@@ -2372,16 +2372,6 @@ body{background:#030609 var(--rh-wood) center/650px repeat!important;color:#f2ef
   const recipe=id=>state.recipes.find(r=>r.productId===id);
   const activeResources=()=>state.resources.filter(r=>r.active!==false);
   const ingredientResources=()=>state.resources.filter(r=>r.active!==false&&r.kind==="ingredient");
-  const SUPPLIER_PLACES=[
-    "Ranch de Big Valley",
-    "Ranch d'Emerald Ranch",
-    "Distillerie de Saint-Denis",
-    "Tabac de Rhodes",
-    "Cotonnerie de Rhodes",
-    "Ferme de Blackwater",
-    "Ferme de Roanokee",
-    "Chasse & Pêche de Window Rock"
-  ];
   const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#039;"}[m]));
 
   function toast(msg){
@@ -2576,14 +2566,6 @@ $('navigationSave').addEventListener('click',async()=>{
         dbId:s.id,resourceId:s.resource_id,unitPrice:num(s.unit_price ?? res(s.resource_id)?.unitPrice),
         name:s.supplier_name||"",telegram:s.telegram||"",place:s.location||""
       }));
-      ingredientResources().forEach(r=>{
-        if(!state.suppliers.some(s=>s.resourceId===r.id)){
-          state.suppliers.push({
-            dbId:null,resourceId:r.id,unitPrice:num(r.unitPrice),
-            name:"",telegram:"",place:""
-          });
-        }
-      });
       state.orders=(orders.data||[]).map(o=>({
         id:o.id,
         resourceId:o.resource_id,
@@ -3029,9 +3011,9 @@ $('navigationSave').addEventListener('click',async()=>{
   function renderSuppliers(){
     const uniqueProducts=list=>[...new Set(list.map(s=>res(s.resourceId)?.name).filter(Boolean))]
       .sort((a,b)=>a.localeCompare(b,"fr-FR",{sensitivity:"base"}));
-    const fixedPlaces=supplierPlaceNames();
+    const savedPlaces=supplierPlaceNames();
     const hasUnassigned=state.suppliers.some(s=>s.resourceId&&!(s.place||"").trim());
-    const places=hasUnassigned?[...fixedPlaces,"Lieu non renseigné"]:fixedPlaces;
+    const places=hasUnassigned?[...savedPlaces,"Lieu non renseigné"]:savedPlaces;
 
     $("suppliersBody").innerHTML=places.map(place=>{
       const atPlace=state.suppliers.filter(s=>s.resourceId)
@@ -3061,15 +3043,15 @@ $('navigationSave').addEventListener('click',async()=>{
         const r=res(s.resourceId);
         const savedPlace=(s.place||"").trim();
         const rowPlace=savedPlace;
-        return `<tr data-id="${esc(s.dbId||("new-"+s.resourceId))}" data-db-id="${esc(s.dbId||"")}" data-resource-id="${esc(s.resourceId)}" data-place="${esc(rowPlace)}">
-          <td class="resource-name"><div class="supplier-ingredient-cell"><span>${esc(r?.name||s.resourceId)}</span>${isAdmin?`<button class="btn danger supplier-delete-ingredient" type="button" data-id="${esc(s.dbId||"")}" data-resource-id="${esc(s.resourceId)}" data-place="${esc(rowPlace)}" data-name="${esc(r?.name||s.resourceId)}" aria-label="Supprimer ${esc(r?.name||s.resourceId)} de ce lieu" title="Supprimer cet ingrédient du lieu">×</button>`:""}</div></td>
+        return `<tr data-id="${esc(s.dbId)}" data-db-id="${esc(s.dbId)}" data-resource-id="${esc(s.resourceId)}" data-place="${esc(rowPlace)}">
+          <td class="resource-name"><div class="supplier-ingredient-cell"><span>${esc(r?.name||s.resourceId)}</span>${isAdmin?`<button class="btn danger supplier-delete-ingredient" type="button" data-id="${esc(s.dbId)}" data-resource-id="${esc(s.resourceId)}" data-place="${esc(rowPlace)}" data-name="${esc(r?.name||s.resourceId)}" aria-label="Supprimer ${esc(r?.name||s.resourceId)} de ce lieu" title="Supprimer cet ingrédient du lieu">×</button>`:""}</div></td>
           <td><div class="currency-input"><input class="sup-price" type="number" min="0" step="0.01" value="${num(s.unitPrice).toFixed(2)}"></div></td>
           <td><input class="sup-name" value="${esc(s.name)}"></td>
           <td><div class="telegram-cell"><input class="sup-telegram" value="${esc(s.telegram)}" placeholder="Ex. RH6536"><button class="btn ghost copy-telegram-btn" type="button" title="Copier le télégramme" aria-label="Copier le télégramme">⧉</button></div></td>
         </tr>`;
       }).join("");
       return header+rows;
-    }).join("");
+    }).join("")||'<tr><td colspan="4" class="empty">Aucun fournisseur enregistré.</td></tr>';
   }
   function renderHistory(){
     const types=[...new Set(state.history.map(h=>h.type))],current=$("historyType").value;
@@ -4069,7 +4051,7 @@ $('navigationSave').addEventListener('click',async()=>{
 
 
   function supplierPlaceNames(){
-    return [...new Set([...SUPPLIER_PLACES,...state.suppliers.map(s=>(s.place||"").trim()).filter(Boolean)])]
+    return [...new Set(state.suppliers.map(s=>s.place.trim()).filter(Boolean))]
       .sort((a,b)=>a.localeCompare(b,"fr-FR",{sensitivity:"base"}));
   }
   function supplierDrafts(){
@@ -4120,7 +4102,7 @@ $('navigationSave').addEventListener('click',async()=>{
         if(!id)throw new Error("Fiche fournisseur introuvable.");
         const {error}=await db.from("suppliers").update({active:false}).eq("id",id);
         if(error)throw error;
-        await loadLocalState();
+        await loadLocalState(false,true);
         toast("Ingrédient retiré du lieu.");
       }catch(err){dbError(err,"Impossible de supprimer cet ingrédient du lieu.");}
       finally{deleteIngredient.disabled=false;}
@@ -4136,9 +4118,9 @@ $('navigationSave').addEventListener('click',async()=>{
       if(!confirm(`Supprimer le lieu « ${place} » et ses ${count} fiche${count>1?"s":""} fournisseur ?\n\nLes ingrédients, le stock, les recettes et l’historique resteront conservés.`))return;
       try{
         deletePlace.disabled=true;
-        const {error}=await db.from("suppliers").update({active:false}).eq("location",place).eq("active",true);
+        const {error}=await db.rpc("remove_supplier_place",{p_location:place});
         if(error)throw error;
-        await loadLocalState();
+        await loadLocalState(false,true);
         toast("Lieu fournisseur supprimé.");
       }catch(err){dbError(err,"Impossible de supprimer ce lieu fournisseur.");}
       finally{deletePlace.disabled=false;}
@@ -4215,10 +4197,10 @@ $('navigationSave').addEventListener('click',async()=>{
   $("saveSuppliers").addEventListener("click",async()=>{
     try{
       for(const tr of document.querySelectorAll("#suppliersBody tr[data-id]")){
-        const resourceId=tr.dataset.resourceId,supplierId=tr.dataset.dbId||null,price=Math.max(0,num(tr.querySelector(".sup-price").value)),name=tr.querySelector(".sup-name").value.trim(),telegram=tr.querySelector(".sup-telegram").value.trim().toUpperCase(),place=(tr.dataset.place||"").trim();
+        const resourceId=tr.dataset.resourceId,supplierId=tr.dataset.dbId,price=Math.max(0,num(tr.querySelector(".sup-price").value)),name=tr.querySelector(".sup-name").value.trim(),telegram=tr.querySelector(".sup-telegram").value.trim().toUpperCase();
         let q=await db.from("resources").update({unit_price:price}).eq("id",resourceId);if(q.error)throw q.error;
-        const payload={resource_id:resourceId,unit_price:price,supplier_name:name||null,telegram:telegram||null,location:place||null,active:true};
-        q=supplierId?await db.from("suppliers").update(payload).eq("id",supplierId):await db.from("suppliers").insert(payload);if(q.error)throw q.error;
+        const payload={unit_price:price,supplier_name:name||null,telegram:telegram||null};
+        q=await db.from("suppliers").update(payload).eq("id",supplierId).eq("active",true);if(q.error)throw q.error;
       }
       await loadLocalState();toast("Fournisseurs enregistrés localement.");
     }catch(err){dbError(err);}

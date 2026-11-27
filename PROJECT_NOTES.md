@@ -123,3 +123,9 @@ Conséquences :
 - Palette acajou, bordeaux, laiton et crème inspirée des captures fournies. La façade de nuit sert de bannière du tableau de bord et la photo intérieure accompagne le registre du comptoir.
 - Fichiers concernés : `index.html`, `bastille-theme.css`, `assets/bastille-facade.webp` et `assets/bastille-comptoir.webp`. Les vestiges visibles du formulaire de consultations ont été retirés.
 - Vérifications dans Chromium sur ordinateur et téléphone : affichage et recadrage du bandeau, chargement de la photo intérieure, navigation et persistance de la caisse après rechargement.
+
+## 27/11/2026 — Suppression des fournisseurs
+
+- `index.html` affiche uniquement les lieux et fiches effectivement enregistrés. Les lieux prédéfinis et les fiches automatiques qui réapparaissaient après suppression ont été retirés.
+- `local-register.js` désactive les fiches d’un lieu en tenant compte des espaces autour du nom et accepte les anciennes fiches sans lieu.
+- Vérifié dans Chromium : suppression d’un lieu et de fiches individuelles, persistance après actualisation, stock conservé et possibilité de recréer le lieu.

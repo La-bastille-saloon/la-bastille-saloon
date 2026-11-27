@@ -9,7 +9,7 @@ window.openLocalRegister = function () {
     recipes: {id:"", name:"", product_resource_id:"", output_quantity:1, active:true},
     recipe_ingredients: {recipe_id:"", ingredient_resource_id:"", quantity:0},
     fabrication_plans: {recipe_id:"", quantity:0},
-    suppliers: {id:"", resource_id:null, unit_price:null, supplier_name:null, telegram:null, location:"", active:true},
+    suppliers: {id:"", resource_id:null, unit_price:null, supplier_name:null, telegram:null, location:null, active:true},
     orders: {id:"", resource_id:"", supplier_id:"", resource_name:"", supplier_name:null, supplier_location:"", supplier_telegram:null, quantity:0, unit_price:0, total_price:0, delivery_fee:0, status:"", created_at:"", delivery_date:null, delivery_time:null, delivered_at:null},
     pricing: {product_resource_id:"", pharmacy_price:null, recommended_price:0, cabinet_return:0},
     pharmacy: {product_resource_id:"", pharmacy_quantity:0},
@@ -169,6 +169,12 @@ window.openLocalRegister = function () {
       return true;
     },
     reset_fabrication_plan(t,p) { t.fabrication_plans=t.fabrication_plans.filter(row=>row.recipe_id!==p.p_recipe_id); return true; },
+    remove_supplier_place(t,p) {
+      for (const supplier of t.suppliers) {
+        if ((supplier.location||"").trim()===p.p_location) supplier.active=false;
+      }
+      return true;
+    },
     remove_ingredient(t,p) {
       const resource=find(t.resources,p.p_resource_id);
       if (t.recipe_ingredients.some(row=>row.ingredient_resource_id===resource.id && find(t.recipes,row.recipe_id)?.active)) throw new Error("Cet ingrédient est utilisé dans une recette.");
